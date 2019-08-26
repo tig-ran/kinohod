@@ -1,0 +1,12 @@
+name: Kinohod
+Model::PostgreSQL:
+    schema_class: 'Kinohod::Model::Schema'
+    connect_info:
+        dsn: 'dbi:Pg:dbname=kinohod;host=localhost;port=5432'
+        user: 'kinohod'
+        password: '123456'
+        quote_names: 1
+        pg_enable_utf8: 1
+        RaiseError: 1
+        AutoCommit: 1
+
