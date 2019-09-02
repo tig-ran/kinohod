@@ -1,0 +1,27 @@
+version: '2'
+services:
+  kinohod-main:
+    build:
+      context: .
+      dockerfile: docker/kinohod-main/Dockerfile
+    command: ["bash", "-c", "cd /usr/src/kinohod; cpanm --installdeps .;starman --port=127.0.0.1:8080 -- startman --workers 2 kinohod.psgi"]
+    environment:
+      KINOHOD_CONFIG: "/usr/src/kinohod/kinohod.yaml"
+    ports:
+      - '8080:8080'
+    #links:
+    #  - db:postgres
+    mem_limit: 500M
+    memswap_limit: 0
+    volumes:
+      - './:/usr/src/kinohod/'
+
+  postgres:
+    build:
+      context: .
+      dockerfile: docker/kinohod-main/Dockerfile
+    cpuset: 0,1
+    mem_limit: 500M
+    memswap_limit: 1000M
+    volumes:
+      - ./data/postgres/data:/var/lib/postgresql/data
